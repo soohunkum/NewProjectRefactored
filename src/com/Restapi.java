@@ -52,10 +52,14 @@ public class Restapi {
         Gson gson = new Gson();
         List<Map<String, Object>> myPushList = null;
         JsonArray jsonArray = json.get("documents").getAsJsonArray();
+
         myPushList = gson.fromJson(jsonArray, new TypeToken<List<Map<String, Object>>>() {
         }.getType());
         return myPushList.toString();
     }
+
+
+
 
 
 
@@ -67,7 +71,7 @@ public class Restapi {
                     System.err.println("Array" + e);
                 } catch (NullPointerException e) {
                     e.printStackTrace();
-//                    System.err.println("Null" + e);
+                    System.err.println("Null" + e);
                 } catch (Exception e) {
                     System.err.println(e);
                 }
