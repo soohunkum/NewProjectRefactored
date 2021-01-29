@@ -116,7 +116,4 @@ public class RoadAddress {
         this.region1depthName = region1depthName;
     }
 
-    public static void main(String[] args) {
-        System.out.println(addressName);
-    }
 }
