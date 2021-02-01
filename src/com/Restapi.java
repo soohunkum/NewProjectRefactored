@@ -4,8 +4,9 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import javax.net.ssl.HttpsURLConnection;
+
+import com.example.Example;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonArray;
@@ -46,34 +47,14 @@ public class Restapi {
         return response.toString();
     }
 
-    public static String prettify(String json_text) {
+    public static List<Example> prettify(String json_text) {
         JsonParser parser = new JsonParser();
         JsonObject json = parser.parse(json_text).getAsJsonObject();
         Gson gson = new Gson();
-        List<Map<String, Object>> myPushList = null;
+        List<Example> example = null;
         JsonArray jsonArray = json.get("documents").getAsJsonArray();
-
-        myPushList = gson.fromJson(jsonArray, new TypeToken<List<Map<String, Object>>>() {
+        example = gson.fromJson(jsonArray, new TypeToken<List<Example>>() {
         }.getType());
-        return myPushList.toString();
+        return example;
     }
-
-
-
-
-
-
-            public static void main (String[]args){
-                try {
-                    String response = search();
-                    System.out.println(prettify(response));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.err.println("Array" + e);
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                    System.err.println("Null" + e);
-                } catch (Exception e) {
-                    System.err.println(e);
-                }
-            }
-        }
+}
