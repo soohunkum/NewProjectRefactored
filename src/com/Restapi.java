@@ -1,16 +1,21 @@
 package com;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
-import javax.net.ssl.HttpsURLConnection;
-
 import com.example.Example;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
+import jdk.swing.interop.SwingInterOpUtils;
+import org.boon.json.JsonFactory;
+import org.boon.json.ObjectMapper;
+
+import javax.net.ssl.HttpsURLConnection;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.List;
 
 
 public class Restapi {
@@ -47,14 +52,43 @@ public class Restapi {
         return response.toString();
     }
 
-    public static List<Example> prettify(String json_text) {
+    public static void prettify(String json_text) {
         JsonParser parser = new JsonParser();
         JsonObject json = parser.parse(json_text).getAsJsonObject();
         Gson gson = new Gson();
         List<Example> example = null;
-        JsonArray jsonArray = json.get("documents").getAsJsonArray();
-        example = gson.fromJson(jsonArray, new TypeToken<List<Example>>() {
-        }.getType());
-        return example;
+//        JsonArray jsonArray = json.get("documents").getAsJsonArray();
+        JsonArray jsonArray2 = json.getAsJsonArray("documents");
+        System.out.println(jsonArray2);
+        JsonObject jsonObject = jsonArray2.get(0).getAsJsonObject();
+        System.out.println(jsonObject.getClass().getName());
+        JsonObject roadAddress = jsonObject.get("road_address").getAsJsonObject();
+        System.out.println(roadAddress.getClass().getName());
+        String addressName = roadAddress.get("address_name").getAsString();
+        System.out.println(addressName);
+
+//        example = gson.fromJson(jsonArray, new TypeToken<List<Example>>() {
+//        }.getType());
+//        System.out.println(example);
     }
-}
+
+    public static void mapper(String json_text){
+//        JsonParser parser = new JsonParser();
+//        JsonObject json = parser.parse(json_text).getAsJsonObject();
+//        JsonArray jsonArray = json.get("documents").getAsJsonArray();
+//        ObjectMapper mapper = new JsonFactory().create();
+//        Example e = mapper.fromJson(jsonArray.getAsCharacter(), Example.class);
+//        System.out.println(e.getAddress());
+    }
+
+    public static void main(String[] args) {
+        try {
+            String response = search ();
+            prettify(response);
+//           mapper(response);
+        }
+        catch (Exception e) {
+            System.out.println (e);
+        }
+    }
+    }
