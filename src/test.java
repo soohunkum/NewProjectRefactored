@@ -1,4 +1,4 @@
-import com.Restapi;
+import com.RestapiSend;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -12,13 +12,14 @@ import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Map;
 
-import static com.Restapi.search;
+import static com.RestapiSend.search;
 
 public class test {
 
     public static void main(String[] args) throws Exception {
         String response = search();
         try {
+
             JSONParser jsonParse = new JSONParser();
             JSONObject jsonObj = (JSONObject) jsonParse.parse(response);
             JSONArray documentsArray = (JSONArray) jsonObj.get("documents");

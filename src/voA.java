@@ -18,13 +18,3 @@ public class voA extends Restapi{
 
 
 
-/*    public static String prettify(String json_text) {
-        JsonParser parser = new JsonParser();
-        JsonObject json = parser.parse(json_text).getAsJsonObject();
-        Gson gson = new Gson();
-        List<Map<String, Object>> myPushList = null;
-        JsonArray jsonArray = json.get("documents").getAsJsonArray();
-        myPushList = gson.fromJson(jsonArray, new TypeToken<List<Map<String, Object>>>() {
-        }.getType());
-        return myPushList.toString();
-    }*/
