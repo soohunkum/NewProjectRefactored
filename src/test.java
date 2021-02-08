@@ -17,35 +17,7 @@ import static com.RestapiSend.search;
 public class test {
 
     public static void main(String[] args) throws Exception {
-        String response = search();
-        try {
 
-            JSONParser jsonParse = new JSONParser();
-            JSONObject jsonObj = (JSONObject) jsonParse.parse(response);
-            JSONArray documentsArray = (JSONArray) jsonObj.get("documents");
-
-            int arrayCount = documentsArray.size();
-            for (int i = 0; i < arrayCount; i++) {
-                System.out.println("documents:" + i);
-                JSONObject objInDocuments = (JSONObject) documentsArray.get(i);
-
-                System.out.println(objInDocuments);
-                System.out.println();
-                System.out.println(objInDocuments.get("road_address"));
-                System.out.println();
-                System.out.println(objInDocuments.get("address"));
-                System.out.println(objInDocuments.get("address_name"));
-                System.out.println();
-
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println("Array" + e);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-//                    System.err.println("Null" + e);
-        } catch (Exception e) {
-            System.err.println(e);
-        }
 
         int[] numberArray = {0, 1, 2, 3, 4, 5, 6, 7};
         // length = 8
@@ -57,6 +29,7 @@ public class test {
             int currentNumber = numberArray[7];
             System.out.println(currentNumber);
             // 0 1 2 3d 4d 5 6
+
         }
     }
 }

@@ -1,4 +1,4 @@
-import com.Restapi;
+
 import javax.net.ssl.HttpsURLConnection;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -10,10 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.List;
 import java.util.Map;
 
-public class voA extends Restapi{
-
-    Restapi restapi = new Restapi();
-
+public class voA {
 }
 
 
