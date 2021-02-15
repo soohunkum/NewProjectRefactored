@@ -29,6 +29,12 @@ public class Address {
     @SerializedName("zip_code")
     @Expose
     private String zipCode;
+    @SerializedName("b_code")
+    @Expose
+    private String b_code;
+    @SerializedName("h_code")
+    @Expose
+    private String h_code;
 
     public String getMountainYn() {
         return mountainYn;
@@ -92,6 +98,21 @@ public class Address {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public void setB_code(String b_code) {
+        this.b_code = b_code;
+    }
+
+    public String getB_code() {
+        return b_code;
+    }
+    public String getH_code() {
+        return h_code;
+    }
+
+    public void setH_code(String h_code) {
+        this.h_code = h_code;
     }
 
 }

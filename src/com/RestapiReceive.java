@@ -12,29 +12,52 @@ import java.io.InputStreamReader;
 
 public class RestapiReceive {
 
-    public static String receive() throws IOException {
+    public static String receive1() throws IOException {
         RestapiSend restapisend = new RestapiSend();
         InputStream inputstream = null;
         try {
-            inputstream = restapisend.search();
+            inputstream = restapisend.search1();
         } catch (Exception e) {
             e.printStackTrace();
         }
         InputStreamReader inputstreamreader = new InputStreamReader(inputstream);
         BufferedReader in = new BufferedReader(inputstreamreader);
-        StringBuilder response = new StringBuilder();
+        StringBuilder response1 = new StringBuilder();
 
         String line;
 
         while ((line = in.readLine()) != null) {
-            response.append(line);
+            response1.append(line);
         }
         in.close();
 
-        return response.toString();
+        return response1.toString();
 
     }
-    public static String prettify(String json_text) {
+
+    public static String receive2() throws IOException {
+        RestapiSend restapisend = new RestapiSend();
+        InputStream inputstream = null;
+        try {
+            inputstream = RestapiSend.search2();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        InputStreamReader inputstreamreader = new InputStreamReader(inputstream);
+        BufferedReader in = new BufferedReader(inputstreamreader);
+        StringBuilder response2 = new StringBuilder();
+
+        String line;
+
+        while ((line = in.readLine()) != null) {
+            response2.append(line);
+        }
+        in.close();
+
+        return response2.toString();
+
+    }
+    public static String prettify1(String json_text) {
         Address address = new Address();
         JsonParser parser = new JsonParser();
         JsonObject json = parser.parse(json_text).getAsJsonObject();
@@ -47,15 +70,34 @@ public class RestapiReceive {
         return address.getAddressName();
     }
 
+    public static String prettify2(String json_text) {
+        Address address = new Address();
+        JsonParser parser = new JsonParser();
+        JsonObject json = parser.parse(json_text).getAsJsonObject();
+        JsonArray jsonArray = json.getAsJsonArray("documents");
+        JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+        JsonObject addressbh = jsonObject.get("address").getAsJsonObject();
+        String b_code = addressbh.get("b_code").getAsString();
+        address.setB_code(b_code);
+        String h_code = addressbh.get("h_code").getAsString();
+        address.setH_code(h_code);
+        return address.getB_code();
+    }
+
 
 
     public static void main(String[] args) {
         try {
-            String response = receive();
-            System.out.println(prettify(response));
+            String response1 = receive1();
+            System.out.println(prettify1(response1));
+            String response2 = receive2();
+            System.out.println(prettify2(response2));
         }
         catch (Exception e) {
             System.out.println (e);
         }
     }
 }
+
+
+
