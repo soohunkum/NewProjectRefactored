@@ -15,24 +15,6 @@ public class voHttps {
 
 
 
-    static  String[] queries = {
-            "x=127.423084873712&y=37.0789561558879&input_coord=WGS84",
-            "x=127.424084873712&y=37.0789561558879&input_coord=WGS84",
-            "x=127.425084873712&y=37.0789561558879&input_coord=WGS84",
-            "x=127.426084873712&y=37.0789561558879&input_coord=WGS84",
-            "x=127.427084873712&y=37.0789561558879&input_coord=WGS84"
-    };
-
-    public static String[] getQueries() {
-        return queries;
-    }
-
-    public static void setQueries(String[] queries) {
-        voHttps.queries = queries;
-    }
-
-
-
 
     public static String getKey() {
         return key;

@@ -11,29 +11,64 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
 
 public class RestapiSend {
 
+
     private static voHttps vohttps = null;
 
+public static QueriesArrayList add() {
+    QueriesArrayList queriesarraylist = new QueriesArrayList();
+    Queries query1 = new Queries("x=127.423084873712&y=37.0789561558879&input_coord=WGS84");
+    Queries query2 = new Queries("x=127.424084873712&y=37.0789561558879&input_coord=WGS84");
+    Queries query3 = new Queries("x=127.425084873712&y=37.0789561558879&input_coord=WGS84");
+    Queries query4 = new Queries("x=127.426084873712&y=37.0789561558879&input_coord=WGS84");
+    Queries query5 = new Queries("x=127.427084873712&y=37.0789561558879&input_coord=WGS84");
 
-    public static InputStream search1() throws Exception {
+    queriesarraylist.addQueries(query1);
+    queriesarraylist.addQueries(query2);
+    queriesarraylist.addQueries(query3);
+    queriesarraylist.addQueries(query4);
+    queriesarraylist.addQueries(query5);
 
-        String params = "?" + vohttps.getQuery();
-        URL url = new URL(vohttps.getHost() + vohttps.getPath() + params);
-        String encoded_query = URLEncoder.encode(vohttps.getQuery(), "UTF-8");
-        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+    return queriesarraylist;
+}
+public static String show(){
+    QueriesArrayList queriesarraylist = new QueriesArrayList();
+    queriesarraylist.returnQueries(add());
+
+    return queriesarraylist.toString();
+
+}
+
+
+
+    public static URL urlconnection() throws MalformedURLException {
+
+        URL url = new URL(vohttps.getHost() + vohttps.getPath() +"?"+ show());
+
+        return url;
+    }
+
+    public static HttpsURLConnection connection() throws IOException {
+        HttpsURLConnection connection = (HttpsURLConnection) urlconnection().openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Authorization", vohttps.getKey());
         connection.setDoOutput(true);
         connection.connect();
-        InputStream inputstream = connection.getInputStream();
+
+        return connection;
+    }
+
+    public static InputStream search1() throws Exception {
+
+        InputStream inputstream = connection().getInputStream();
 
         return inputstream;
-
     }
 
     public static String setAddress() throws IOException {

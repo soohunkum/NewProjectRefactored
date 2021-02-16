@@ -76,12 +76,22 @@ public class RestapiReceive {
         JsonObject json = parser.parse(json_text).getAsJsonObject();
         JsonArray jsonArray = json.getAsJsonArray("documents");
         JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-        JsonObject addressbh = jsonObject.get("address").getAsJsonObject();
-        String b_code = addressbh.get("b_code").getAsString();
+        JsonObject address2 = jsonObject.get("address").getAsJsonObject();
+        String b_code = address2.get("b_code").getAsString();
         address.setB_code(b_code);
-        String h_code = addressbh.get("h_code").getAsString();
-        address.setH_code(h_code);
         return address.getB_code();
+    }
+
+    public static String prettify3(String json_text) {
+        Address address = new Address();
+        JsonParser parser = new JsonParser();
+        JsonObject json = parser.parse(json_text).getAsJsonObject();
+        JsonArray jsonArray = json.getAsJsonArray("documents");
+        JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+        JsonObject address2 = jsonObject.get("address").getAsJsonObject();
+        String h_code = address2.get("h_code").getAsString();
+        address.setH_code(h_code);
+        return address.getH_code();
     }
 
 
@@ -92,6 +102,7 @@ public class RestapiReceive {
             System.out.println(prettify1(response1));
             String response2 = receive2();
             System.out.println(prettify2(response2));
+            System.out.println(prettify3(response2));
         }
         catch (Exception e) {
             System.out.println (e);
