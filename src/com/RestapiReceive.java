@@ -12,7 +12,6 @@ import java.io.InputStreamReader;
 
 public class RestapiReceive {
 
-    //x,y좌표 넘긴 후 도로명주소 받기
     public static String receive1() throws IOException {
         RestapiSend restapisend = new RestapiSend();
         InputStream inputstream = null;
@@ -36,12 +35,11 @@ public class RestapiReceive {
 
     }
 
-    //도로명주소 넘긴 후 행정동 법정동 코드 받기
     public static String receive2() throws IOException {
         RestapiSend restapisend = new RestapiSend();
         InputStream inputstream = null;
         try {
-            inputstream = restapisend.search2();
+            inputstream = RestapiSend.search2();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -59,8 +57,6 @@ public class RestapiReceive {
         return response2.toString();
 
     }
-
-    //도로명주소 저장하기
     public static String prettify1(String json_text) {
         Address address = new Address();
         JsonParser parser = new JsonParser();
@@ -74,30 +70,18 @@ public class RestapiReceive {
         return address.getAddressName();
     }
 
-    //법정동 코드 저장하기
     public static String prettify2(String json_text) {
         Address address = new Address();
         JsonParser parser = new JsonParser();
         JsonObject json = parser.parse(json_text).getAsJsonObject();
         JsonArray jsonArray = json.getAsJsonArray("documents");
         JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-        JsonObject address2 = jsonObject.get("address").getAsJsonObject();
-        String b_code = address2.get("b_code").getAsString();
+        JsonObject addressbh = jsonObject.get("address").getAsJsonObject();
+        String b_code = addressbh.get("b_code").getAsString();
         address.setB_code(b_code);
-        return address.getB_code();
-    }
-
-    //행정동 코드 저장하기
-    public static String prettify3(String json_text) {
-        Address address = new Address();
-        JsonParser parser = new JsonParser();
-        JsonObject json = parser.parse(json_text).getAsJsonObject();
-        JsonArray jsonArray = json.getAsJsonArray("documents");
-        JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-        JsonObject address2 = jsonObject.get("address").getAsJsonObject();
-        String h_code = address2.get("h_code").getAsString();
+        String h_code = addressbh.get("h_code").getAsString();
         address.setH_code(h_code);
-        return address.getH_code();
+        return address.getB_code();
     }
 
 
@@ -108,7 +92,6 @@ public class RestapiReceive {
             System.out.println(prettify1(response1));
             String response2 = receive2();
             System.out.println(prettify2(response2));
-            System.out.println(prettify3(response2));
         }
         catch (Exception e) {
             System.out.println (e);
