@@ -11,31 +11,62 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Iterator;
 
 
 public class RestapiSend {
 
+
     private static voHttps vohttps = null;
 
 
-    public static InputStream search1() throws Exception {
 
-        String params = "?" + vohttps.getQuery();
-        URL url = new URL(vohttps.getHost() + vohttps.getPath() + params);
-        String encoded_query = URLEncoder.encode(vohttps.getQuery(), "UTF-8");
-        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+public static String add() {
+
+        QueriesArrayList queriesarraylist = new QueriesArrayList();
+
+        Queries queries = new Queries(vohttps.getQueryx()+"&"+vohttps.getQueryy()+vohttps.getCoord());
+
+
+            queriesarraylist.addQueries(queries);
+
+
+        return queriesarraylist.returnQueries(queries);
+    }
+
+
+    public static URL urlconnection() throws MalformedURLException {
+
+        URL url = new URL(vohttps.getHost() + vohttps.getPath() +"?" + add());
+
+        return url;
+    }
+
+    public static HttpsURLConnection connection() throws IOException {
+        HttpsURLConnection connection = (HttpsURLConnection) urlconnection().openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Authorization", vohttps.getKey());
         connection.setDoOutput(true);
         connection.connect();
-        InputStream inputstream = connection.getInputStream();
 
-        return inputstream;
-
+        return connection;
     }
 
+
+    //x,y좌표 inputstream으로 넘기기
+    public static InputStream search1() throws Exception {
+
+        InputStream inputstream = connection().getInputStream();
+
+        return inputstream;
+    }
+
+
+
+    //도로명주소 추출
     public static String setAddress() throws IOException {
 
         InputStream inputstream = null;
@@ -68,6 +99,8 @@ public class RestapiSend {
         return add;
     }
 
+
+    //도로명주소 inputstream으로 넘기기
         public static InputStream search2() throws Exception {
         String encoded_query = URLEncoder.encode(setAddress(), "UTF-8");
         URL url = new URL(vohttps.getHost() + vohttps.getPath2() + "=" +encoded_query);
