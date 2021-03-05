@@ -9,7 +9,7 @@ import com.example.voHttps;
 public class UrlFor {
 voHttps vohttps = new voHttps();
     String[] queries = {
-    "x=127.423084873712&y=37.0789561558879&input_coord=WGS84",
+//    "x=127.423084873712&y=37.0789561558879&input_coord=WGS84",
 
             "x=128.619305&y=36.806944&input_coord=WGS84",
             "x=127.425084873712&y=37.0789561558879&input_coord=WGS84",

@@ -6,15 +6,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
 
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 
 public class RestapiSend {
@@ -24,7 +21,6 @@ public class RestapiSend {
     private static final String TAG_C = "prettify1:aaaaaaaaaaaaaaaaaaaaaaaa ";
     private static final String TAG_D = "main: ";
     private static voHttps vohttps = null;
-
 
 
 //public static String add() {
@@ -49,36 +45,37 @@ public class RestapiSend {
 //}
 
 
-
-    public static ArrayList<HttpsURLConnection> connection() throws IOException,MalformedURLException {
+    public static ArrayList<HttpsURLConnection> connection() throws IOException, MalformedURLException {
         UrlFor urlfor = new UrlFor();
 
         urlfor.urlconnection();
         HttpsURLConnection connection = null;
         URLConnection urlconnection = null;
         InputStream inputstream = null;
-        ArrayList<HttpsURLConnection> httpsarray=  new ArrayList<HttpsURLConnection>();
-try {
-    for (int l = 0; l < urlfor.urlconnection().size(); l++) {
-        urlconnection = urlfor.urlconnection().get(l).openConnection();
+        ArrayList<HttpsURLConnection> httpsarray = new ArrayList<HttpsURLConnection>();
+        int count = urlfor.urlconnection().size();
+        try {
+            for (int l = 0; l < count; l++) {
+                urlconnection = urlfor.urlconnection().get(l).openConnection();
 
-        for (int k = 0; k < urlfor.urlconnection().size(); k++) {
-            connection = (HttpsURLConnection) urlconnection;
+                for (int k = 0; k < count; k++) {
+                    connection = (HttpsURLConnection) urlconnection;
 
-        }
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Authorization", vohttps.getKey());
-        connection.setDoOutput(true);
-        connection.connect();
-        httpsarray.add(connection);
-    }
-}catch(MalformedURLException a){
-    a.printStackTrace();
-}catch(IOException e){
-    e.printStackTrace();
+                }
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", vohttps.getKey());
+                connection.setDoOutput(true);
+                connection.connect();
+                httpsarray.add(connection);
+            }
+        } catch (MalformedURLException a) {
+            a.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return httpsarray;
+
     }
 
 
@@ -87,11 +84,13 @@ try {
         connection();
         InputStream inputstream = null;
         ArrayList<InputStream> inputstreamarray = new ArrayList<InputStream>();
-        for(int u=0; u< connection().size(); u++) {
+        int count = connection().size();
+        for (int u = 0; u < count; u++) {
             inputstream = connection().get(u).getInputStream();
             inputstreamarray.add(inputstream);
 
         }
+
         return inputstreamarray;
 
     }
@@ -103,55 +102,129 @@ try {
         BufferedReader in = null;
         StringBuilder response1 = new StringBuilder();
         String line;
+        int count = search1().size();
 
-        for(int q=0; q< search1().size(); q++) {
+        for(int q = 0; q < count; q++) {
             inputstreamreader = new InputStreamReader(search1().get(q));
             in = new BufferedReader(inputstreamreader);
-
-            while ((line = in.readLine()) != null) {
-                response1.append(line);
-                stringarray.add(response1.append((line)).toString());
-            }
+            line = in.readLine();
+            response1.append(line);
+            stringarray.add(response1.append((line)).toString());
         }
+
         in.close();
-    System.out.println("eeeeeeeeeeeeeeeeeeeeeee" + response1.toString());
+        System.out.println("eeeeeeeeeeeeeeeeeeeeeee" + stringarray);
+        System.out.println();
         //System.out.println("ABC" + response1.toString());
         return stringarray;
 
     }
-    private static String jsonReader(String json_text) throws Exception {
-        Address address = new Address();
+
+    public static ArrayList<StringReader> stringReader() throws Exception {
         StringReader reader = null;
-        JsonParser parser = new JsonParser();
-        try{
-        for (int e = 0; e < receive1().size(); e++) {
+        ArrayList<StringReader>readerarray = new ArrayList<StringReader>();
+        int count =  receive1().size();
+        for (int e = 0; e < count; e++) {
             reader = new StringReader(receive1().get(e));
-            JsonReader jsonReader = new JsonReader(reader);
-            jsonReader.setLenient(true);
-            JsonObject json = parser.parse(jsonReader).getAsJsonObject();
-            JsonArray jsonArray = json.getAsJsonArray("documents");
-            JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-            JsonObject roadAddress = jsonObject.get("road_address").getAsJsonObject();
-            String addressName = roadAddress.get("address_name").getAsString();
-
-            address.setAddressName(addressName);
+            reader.read();
+           readerarray.add(reader);
+//System.out.println(readerarray.get(e));
         }
 
-        } catch (NullPointerException e){
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
+        return readerarray;
+    }
+
+public static ArrayList<String> jsonreaderarraylisttostring() throws Exception {
+    int count = receive1().size();
+    ArrayList<String> jsonreaderarraylisttostring = new ArrayList<String>();
+    ArrayList<JsonReader> jsonreaderarraylist = new ArrayList<JsonReader>();
+    for (int b = 0; b < count; b++) {
+        jsonreaderarraylist.add(new JsonReader((Reader)stringReader().get(b)));
+        jsonreaderarraylisttostring.add(jsonreaderarraylist.get(b).toString());
+    }
+    return jsonreaderarraylisttostring;
+}
+
+    public static ArrayList<String> addressnamelist() throws Exception {
+//        Address address = new Address();
+
+        ArrayList<JsonReader> jsonreader = new ArrayList<JsonReader>();
+        JsonParser parser = new JsonParser();
+        String addressName = null;
+        ArrayList<String> addressnamelist = new ArrayList<String>();
+
+        try {
+            int count = stringReader().size();
+//            for (int z = 0; z <count ; z++) {
+//                jsonreader.setLenient(true);
+//                jsonreader.add(new JsonReader((Reader)jsonreaderarraylisttostring().get(z)));
+                int b=0;
+                for (int a = 0; a < count; a++) {
+                    JsonObject json = parser.parse(jsonreaderarraylisttostring().get(a)).getAsJsonObject();
+                    JsonArray jsonArray = json.getAsJsonArray("documents");
+                    JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+                    JsonObject roadAddress = jsonObject.get("address").getAsJsonObject();
+                    addressName = roadAddress.get("address_name").getAsString();
+                    addressnamelist.add(addressName);
+                }
+
             }
-            return address.getAddressName();
+
+
+//            jsonreader.close();
+        catch(JsonSyntaxException e){
+            e.printStackTrace();
+            System.out.println(e);
         }
+         catch (IllegalStateException e) {
+            e.printStackTrace();
+            System.out.println (e);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            System.out.println (e);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println (e);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println (e);
+        }
+System.out.println(addressnamelist);
+        return addressnamelist;
+    }
+
+
+
+    public static void readaddress() throws Exception {
+        try {
+            int count = addressnamelist().size();
+            for (int l = 0; l <count ; l++) {
+                System.out.println(addressnamelist().get(l));
+            }
+        }catch(NullPointerException e){
+            e.printStackTrace();
+            System.out.println (e);
+
+            } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 
     public static void main(String[] args) {
         try {
-            String response1 = receive1().toString();
-            System.out.println(TAG_D + jsonReader(response1));
+//            String response1 = receive1().toString();
+//            System.out.println(TAG_D + jsonReader(response1));
+//            readaddress();
+            Test test = new Test();
+            test.runSome();
         }
         catch (Exception e) {
-            System.out.println (e);
+//            System.out.println (e);
+            e.printStackTrace();
         }
     }
 
