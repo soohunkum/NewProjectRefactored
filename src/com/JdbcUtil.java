@@ -28,6 +28,7 @@ public class JdbcUtil {
                 "       ROUND(CAST(ST_X(ST_Transform(ST_GeometryN(geom, 1), 4326)) AS numeric), 6) AS \"x\",\n" +
                 "       ROUND(CAST(ST_Y(ST_Transform(ST_GeometryN(geom, 1), 4326)) AS numeric), 6) AS \"y\"\n" +
                 "from viw_wtt_wutl_ht;";
+        String sql2 = "SELECT COUNT(*)FROM viw_wtt_wutl_ht";
 
 //        SQLHashSet sqlHashSet = new SQLHashSet();
 
@@ -45,7 +46,10 @@ SQLList sqlList = new SQLList();
 
 
                 }
-
+            int rscount = 0;
+            st2 = conn.createStatement();
+            rs2 = st2.executeQuery(sql2);
+            if(rs2.next()) rscount = rs2.getInt(1);
 
 
         } catch (PSQLException e) {
@@ -71,4 +75,5 @@ st1.close();
             }
         }
     }
+
 }

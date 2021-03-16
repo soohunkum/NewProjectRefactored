@@ -25,6 +25,7 @@ public class SQLList {
     public SQLList(){};
 
     public ArrayList<String> returnXY(double x, double y){
+
         ArrayList<String>queryarray = new ArrayList<String>();
 
         queryarray.add("x="+this.getX()+"&y="+this.getY()+"&input_coord=WGS84");
