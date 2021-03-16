@@ -1,7 +1,5 @@
 package com;
 
-import com.example.Address;
-import com.example.Example;
 import com.example.voHttps;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -14,6 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+
 import java.util.ArrayList;
 
 class Test {
@@ -32,18 +31,7 @@ class Test {
 
             for (int i = 0; i < count; i++) {
                 url = urls.get(i);
-                StringBuffer buffer = getBuffer(url);
-
-//                System.out.println(String.format("Response : %d, %s", code, message));
-//                System.out.println("Response DATA : ");
-//                System.out.println(buffer == null ? "NULL " : buffer.toString());
-
-                String bufferString = buffer.toString();
-                JsonParser parser = new JsonParser();
-                JsonObject json = parser.parse(bufferString).getAsJsonObject();
-                JsonArray jsonArray = json.getAsJsonArray("documents");
-                JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-                JsonObject roadAddress = jsonObject.get("address").getAsJsonObject();
+                JsonObject roadAddress = getaddress(url);
                 String addressName = roadAddress.get("address_name").getAsString();
                 System.out.println(addressName);
                 addressArrayList.add(addressName);
@@ -64,18 +52,7 @@ class Test {
         try {
             String encoded_query = URLEncoder.encode(addressName, "UTF-8");
             url = new URL(urlStr + encoded_query);
-            StringBuffer buffer = getBuffer(url);
-
-//            System.out.println(String.format("Response : %d, %s", code, message));
-//            System.out.println("Response DATA : ");
-//            System.out.println(buffer == null ? "NULL " : buffer.toString());
-
-            String bufferString = buffer.toString();
-            JsonParser parser = new JsonParser();
-            JsonObject json = parser.parse(bufferString).getAsJsonObject();
-            JsonArray jsonArray = json.getAsJsonArray("documents");
-            JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-            JsonObject roadAddress = jsonObject.get("address").getAsJsonObject();
+            JsonObject roadAddress = getaddress(url);
             String bCode = roadAddress.get("b_code").getAsString();
             String hCode = roadAddress.get("h_code").getAsString();
             System.out.println("법정동코드: " + bCode + "/" + "행정동코드: " + hCode);
@@ -83,6 +60,23 @@ class Test {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    public JsonObject getaddress(URL url){
+        StringBuffer buffer = getBuffer(url);
+
+//            System.out.println(String.format("Response : %d, %s", code, message));
+//            System.out.println("Response DATA : ");
+//            System.out.println(buffer == null ? "NULL " : buffer.toString());
+
+        String bufferString = buffer.toString();
+        JsonParser parser = new JsonParser();
+        JsonObject json = parser.parse(bufferString).getAsJsonObject();
+        JsonArray jsonArray = json.getAsJsonArray("documents");
+        JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+        JsonObject roadAddress = jsonObject.get("address").getAsJsonObject();
+
+        return roadAddress;
     }
 
     public StringBuffer getBuffer(URL url) {
