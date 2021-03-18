@@ -1,9 +1,9 @@
 package com.example;
 
 import com.JdbcUtil;
+import com.Test;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class SQLList {
 
@@ -11,6 +11,10 @@ public class SQLList {
     private int AdminAddress;
     private double x;
     private double y;
+    private int bCode;
+    private int hCode;
+
+    Test test = new Test();
 
     public SQLList(int AdminAddress, double x, double y){
         this.AdminAddress = AdminAddress;
@@ -24,37 +28,14 @@ public class SQLList {
 
     public SQLList(){};
 
-    public ArrayList<String> returnXY(double x, double y){
+    public String getXY(double x, double y){
 
-        ArrayList<String>queryarray = new ArrayList<String>();
-
-        queryarray.add("x="+this.getX()+"&y="+this.getY()+"&input_coord=WGS84");
-
-        return queryarray;
+        return "x="+x+"&y="+y+"&input_coord=WGS84";
     }
 
-    public int getAdminAddress() {
-        return AdminAddress;
-    }
+    public String getXY2(){
 
-    public void setAdminAddress(int AdminAddress) {
-        this.AdminAddress = AdminAddress;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
+        return "x="+this.x+"&y="+this.y+"&input_coord=WGS84";
     }
 
 
@@ -62,5 +43,27 @@ public class SQLList {
 
 
 
+        public int getAdminAddress () {
+            return AdminAddress;
+        }
 
-}
+        public void setAdminAddress ( int AdminAddress){
+            this.AdminAddress = AdminAddress;
+        }
+
+        public double getX () {
+            return x;
+        }
+
+        public void setX ( double x){
+            this.x = x;
+        }
+
+        public double getY () {
+            return y;
+        }
+
+        public void setY ( double y){
+            this.y = y;
+        }
+    }
