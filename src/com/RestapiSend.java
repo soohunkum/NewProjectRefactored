@@ -215,12 +215,16 @@ System.out.println(addressnamelist);
 
 
     public static void main(String[] args) {
+        String addressName = null;
         try {
 //            String response1 = receive1().toString();
 //            System.out.println(TAG_D + jsonReader(response1));
 //            readaddress();
+
             Test test = new Test();
+            addressName = test.getAddressName();
             test.runSome();
+
         }
         catch (Exception e) {
 //            System.out.println (e);

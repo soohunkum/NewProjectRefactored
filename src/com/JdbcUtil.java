@@ -3,8 +3,6 @@ package com;
 import com.example.SQLList;
 import org.postgresql.util.PSQLException;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -21,6 +19,10 @@ public class JdbcUtil {
         ResultSet rs3 = null;
         PreparedStatement pstmt = null;
 
+        Test test = new Test();
+        test.runSome();
+        String code = test.getbCode();
+        System.out.println("bcode=" + code);
 
         String url = "jdbc:postgresql://localhost/wfis47210a";
         String user = "postgres";
@@ -34,6 +36,7 @@ public class JdbcUtil {
 //        SQLHashSet sqlHashSet = new SQLHashSet();
 
         SQLList sqlList = new SQLList();
+
         ArrayList<String> array = null;
         try {
 
@@ -48,12 +51,16 @@ public class JdbcUtil {
 //                new SQLList(rs1.getInt("관리번호"), rs1.getDouble("x"), rs1.getDouble("y"));
                 double myX = rs1.getDouble("x");
                 double myY = rs1.getDouble("y");
+                int num = rs1.getInt("관리번호");
 
                 sqlList.setX(myX);
                 sqlList.setY(myY);
+                sqlList.setNum(num);
 
                 System.out.println(sqlList.getXY2());
+                System.out.println(sqlList.getNum());
                 array.add(sqlList.getXY2());
+
 
                 }
 
@@ -208,70 +215,70 @@ public class JdbcUtil {
     }return rscount;
 }
 
-        public static ArrayList<String> getContent() throws SQLException {
-
-        Connection conn = null;
-        Statement st1 = null;
-        Statement st2 = null;
-        Statement st3 = null;
-        ResultSet rs1 = null;
-        ResultSet rs2 = null;
-        ResultSet rs3 = null;
-        PreparedStatement pstmt = null;
-
-
-
-        String url = "jdbc:postgresql://localhost/wfis47210a";
-        String user = "postgres";
-        String password = "root";
-        String sql = ;
-
-        SQLList sqlList = new SQLList();
-
-        try {
-
-            conn = DriverManager.getConnection(url, user, password);
-//            pstmt = conn.prepareStatement();
-            st3 = conn.createStatement();
-
-            // st3 = conn.createStatement();
-            rs3 = st3.executeQuery(sql);
-
-            while(rs3.next()){
-
-                for (int i = 0; i < this.getCount(); i++) {
-
-                }
-
-            }
-
-
-
-
-
-        } catch (SQLException e) {
-            System.out.println(e);
-            e.printStackTrace();
-
-        } finally {
-            try {
-                conn.close();
-                st3.close();
-//st2.close();
-//st3.close();
-//rs2.close();
-//rs3.close();
-
-
-            } catch (PSQLException sqlEX) {
-                System.out.println(sqlEX);
-                sqlEX.printStackTrace();
-            } catch (SQLException e) {
-                System.out.println(e);
-                e.printStackTrace();
-            }
-        }
-    }
+//        public static ArrayList<String> getContent() throws SQLException {
+//
+//        Connection conn = null;
+//        Statement st1 = null;
+//        Statement st2 = null;
+//        Statement st3 = null;
+//        ResultSet rs1 = null;
+//        ResultSet rs2 = null;
+//        ResultSet rs3 = null;
+//        PreparedStatement pstmt = null;
+//
+//
+//
+//        String url = "jdbc:postgresql://localhost/wfis47210a";
+//        String user = "postgres";
+//        String password = "root";
+//        String sql = ;
+//
+//        SQLList sqlList = new SQLList();
+//
+//        try {
+//
+//            conn = DriverManager.getConnection(url, user, password);
+////            pstmt = conn.prepareStatement();
+//            st3 = conn.createStatement();
+//
+//            // st3 = conn.createStatement();
+//            rs3 = st3.executeQuery(sql);
+//
+//            while(rs3.next()){
+//
+//                for (int i = 0; i < this.getCount(); i++) {
+//
+//                }
+//
+//            }
+//
+//
+//
+//
+//
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//            e.printStackTrace();
+//
+//        } finally {
+//            try {
+//                conn.close();
+//                st3.close();
+////st2.close();
+////st3.close();
+////rs2.close();
+////rs3.close();
+//
+//
+//            } catch (PSQLException sqlEX) {
+//                System.out.println(sqlEX);
+//                sqlEX.printStackTrace();
+//            } catch (SQLException e) {
+//                System.out.println(e);
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
 
 

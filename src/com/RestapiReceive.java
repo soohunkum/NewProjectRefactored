@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 
 public class RestapiReceive {
 
-    //x,y좌표 넘긴 후 도로명주소 받기
+    //x,y좌표 넘긴 후- 도로명주소 받기
     public static String receive1() throws Exception {
         RestapiSend restapisend = new RestapiSend();
         InputStream inputstream = null;
