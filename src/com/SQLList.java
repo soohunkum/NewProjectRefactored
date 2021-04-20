@@ -1,17 +1,20 @@
-package com.example;
+package com;
 
 import com.JdbcUtil;
+import com.JdbcUtilChild;
 import com.Test;
+import com.TestChild;
 
 import java.util.ArrayList;
 
 public class SQLList {
 
-    private int num;
-    private double x;
-    private double y;
-    private String bCode;
-    private String hCode;
+     int num;
+     double x;
+     double y;
+     String bCode;
+     String hCode;
+     String addressName;
 
 
 //    Test test = new Test();
@@ -26,8 +29,26 @@ public class SQLList {
 //
 //    }
 
+
+
     public SQLList() {
     }
+
+    public SQLList(int num, double x, double y, String bCode, String hCode, String addressName){
+        this.num = num;
+        this.x = x;
+        this.y = y;
+        this.bCode = bCode;
+        this.hCode = hCode;
+        this.addressName = addressName;
+        System.out.println("num" + num + "x" + x + "y" + y + "bCode" + bCode + "hCode" + hCode + "addressName" + addressName);
+    }
+
+    public String passByValue() {
+
+        return this.num + this.x + this.y + this.bCode + this.hCode + this.addressName;
+    }
+
 
 
     public String getXY(double x, double y) {
@@ -81,6 +102,16 @@ public class SQLList {
     public void sethCode(String hCode) {
         this.hCode = hCode;
     }
+
+    public String getAddressName() {
+        return addressName;
+    }
+
+    public void setAddressName(String addressName) {
+        this.addressName = addressName;
+    }
+
+
 
 
 }

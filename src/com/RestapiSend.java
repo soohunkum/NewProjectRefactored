@@ -222,7 +222,7 @@ System.out.println(addressnamelist);
 //            readaddress();
 
             Test test = new Test();
-            addressName = test.getAddressName();
+           // addressName = test.getAddressName();
             test.runSome();
 
         }

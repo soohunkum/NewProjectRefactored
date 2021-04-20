@@ -12,43 +12,36 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-
 import java.util.ArrayList;
 
-public class Test {
-
+public class TestChild extends Test{
+    public String bCode;
+    public String hCode;
+    public String addressName;
     String urlStr = "https://dapi.kakao.com/v2/local/search/address.json?query=";
     URL url = null;
     HttpURLConnection connection = null;
     BufferedReader reader = null;
     ArrayList<String> addressArrayList = new ArrayList<>();
-
-//
-//    public int getSize() throws MalformedURLException {
-//        UrlFor urlfor = new UrlFor();
-//        int count = urlfor.urlconnection().size();
-//        return count;
-//    }
-    public Test(){}
-
-
     public void runSome() {
         System.out.println("runSome 실행됨");
         int resultCount = 0;
+        SQLList sqlList = new SQLList();
         try {
             UrlFor urlfor = new UrlFor();
             ArrayList<URL> urls = urlfor.urlconnection();
             int count = urls.size();
-            System.out.println("총 URL 수: " + count);
+
             for (int i = 0; i < count; i++) {
                 url = urls.get(i);
                 JsonObject roadAddress = getaddress(url);
                 if (roadAddress == null) continue;
                 String addressName = roadAddress.get("address_name").getAsString();
-                System.out.println(addressName);
                 //setAddressName(addressName);
+                sqlList.setAddressName(addressName);
                 addressArrayList.add(addressName);
                 ++resultCount;
+                sqlList.passByValue();
 
 //                if (roadAddress != null) {
 //                    String addressName = roadAddress.get("address_name").getAsString();
@@ -57,11 +50,12 @@ public class Test {
 //                    ++resultCount;
 //                }
             }
-            System.out.println(addressArrayList.size());
+
             for (int i = 0; i < addressArrayList.size(); i++) {
                 String addressName = addressArrayList.get(i);
                 //setAddressName(addressName);
                 runSomeNext(addressName);
+
 
 
 
@@ -81,13 +75,14 @@ public class Test {
             String bCode = roadAddress.get("b_code").getAsString();
             sqlList.setbCode(bCode);
             //bCode = getbCode();
-            System.out.println(bCode);
+
             String hCode = roadAddress.get("h_code").getAsString();
             sqlList.sethCode(hCode);
-            //hCode = gethCode();
-            System.out.println(hCode);
 
-            System.out.println("법정동코드: " + bCode + "/" + "행정동코드: " + hCode);
+
+            //hCode = gethCode();
+
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -111,8 +106,7 @@ public class Test {
             roadAddress = jsonObject.get("address").getAsJsonObject();
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
-            System.out.println(url);
-            System.out.println(json);
+
         }
         return roadAddress;
     }
@@ -152,3 +146,4 @@ public class Test {
 
 
 }
+

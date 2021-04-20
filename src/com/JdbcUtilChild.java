@@ -5,11 +5,11 @@ import org.postgresql.util.PSQLException;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class JdbcUtil {
+public class JdbcUtilChild extends JdbcUtil{
 
-    public int num;
-    public double x;
-    public double y;
+    int num;
+    double x;
+    double y;
 
 
 
@@ -25,7 +25,9 @@ public class JdbcUtil {
         PreparedStatement pstmt = null;
 
 
-        String url = "jdbc:postgresql://localhost/wfis47210a";
+        String url = "jdbc:postgres6+" +
+                "+" +
+                "ql://localhost/wfis47210a";
         String user = "postgres";
         String password = "root";
         String sql = "SELECT 관리번호,\n" +
@@ -61,7 +63,9 @@ public class JdbcUtil {
                 sqlList.setX(myX);
                 sqlList.setY(myY);
                 sqlList.setNum(num);
-
+                this.num = num;
+                this.x = myX;
+                this.y = myY;
                 System.out.println(sqlList.getXY2());
                 //System.out.println(num + myX + myY);
                 array.add(sqlList.getXY2());
@@ -227,7 +231,7 @@ public class JdbcUtil {
         return rscount;
     }
 
-//        public static ArrayList<String> getContent() throws SQLException {
+    //        public static ArrayList<String> getContent() throws SQLException {
 //
 //        Connection conn = null;
 //        Statement st1 = null;
@@ -291,11 +295,10 @@ public class JdbcUtil {
 //            }
 //        }
 //    }
-        public static ArrayList<Double> arrayX(){
+    public static ArrayList<Double> arrayX(){
         return arrayX();
-        }
-        public static ArrayList<Double> arrayY(){
+    }
+    public static ArrayList<Double> arrayY(){
         return arrayY();
-        }
-
+    }
 }
