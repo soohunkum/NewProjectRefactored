@@ -9,82 +9,176 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class TestChild extends Test{
-    public String bCode;
-    public String hCode;
-    public String addressName;
+public class TestChild extends Test {
+
     String urlStr = "https://dapi.kakao.com/v2/local/search/address.json?query=";
     URL url = null;
     HttpURLConnection connection = null;
     BufferedReader reader = null;
+    ArrayList<String> bCodeArrayList = new ArrayList<>();
+    ArrayList<String> hCodeArrayList = new ArrayList<>();
     ArrayList<String> addressArrayList = new ArrayList<>();
-    public void runSome() {
+    JsonObject address = null;
+
+    public ArrayList<String> getbCodeArrayList() {
+        return bCodeArrayList;
+    }
+
+    public void setbCodeArrayList(ArrayList<String> bCodeArrayList) {
+        this.bCodeArrayList = bCodeArrayList;
+    }
+
+    public ArrayList<String> gethCodeArrayList() {
+        return hCodeArrayList;
+    }
+
+    public void sethCodeArrayList(ArrayList<String> hCodeArrayList) {
+        this.hCodeArrayList = hCodeArrayList;
+    }
+
+    public ArrayList<String> getAddressArrayList() {
+        return addressArrayList;
+    }
+
+    public TestChild() {
+    }
+
+
+    public ArrayList<String> runAddressName() {
         System.out.println("runSome 실행됨");
-        int resultCount = 0;
-        SQLList sqlList = new SQLList();
+        String addressName;
         try {
             UrlFor urlfor = new UrlFor();
             ArrayList<URL> urls = urlfor.urlconnection();
             int count = urls.size();
-
+            System.out.println("총 URL 수: " + count);
             for (int i = 0; i < count; i++) {
                 url = urls.get(i);
                 JsonObject roadAddress = getaddress(url);
-                if (roadAddress == null) continue;
-                String addressName = roadAddress.get("address_name").getAsString();
-                //setAddressName(addressName);
-                sqlList.setAddressName(addressName);
+                if (roadAddress == null) {
+                    addressName = "없음";
+                } else {
+                    addressName = roadAddress.get("address_name").getAsString();
+                }
                 addressArrayList.add(addressName);
-                ++resultCount;
-                sqlList.passByValue();
-
-//                if (roadAddress != null) {
-//                    String addressName = roadAddress.get("address_name").getAsString();
-//                    System.out.println(addressName);
-//                    addressArrayList.add(addressName);
-//                    ++resultCount;
-//                }
-            }
-
-            for (int i = 0; i < addressArrayList.size(); i++) {
-                String addressName = addressArrayList.get(i);
-                //setAddressName(addressName);
-                runSomeNext(addressName);
-
-
-
 
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return addressArrayList;
     }
 
-    public void runSomeNext(String addressName) {
-        SQLList sqlList = new SQLList();
+    public ArrayList<String> runbCode() throws MalformedURLException, UnsupportedEncodingException {
+        String bCode = null;
+        UrlFor urlfor = new UrlFor();
+        URL url2 = null;
+        ArrayList<URL> urls = urlfor.urlconnection();
+        String addressName = null;
         try {
-            String encoded_query = URLEncoder.encode(addressName, "UTF-8");
-            url = new URL(urlStr + encoded_query);
-            JsonObject roadAddress = getaddress(url);
-            String bCode = roadAddress.get("b_code").getAsString();
-            sqlList.setbCode(bCode);
-            //bCode = getbCode();
+            int count = urls.size();
+            for (int i = 0; i < count; i++) {
+                url = urls.get(i);
+                JsonObject roadAddress = getaddress(url);
+                if (roadAddress == null) {
+                    addressName = "없음";
+                } else {
+                    addressName = roadAddress.get("address_name").getAsString();
+                }
+                String encoded_query = URLEncoder.encode(addressName, "UTF-8");
+                url2 = new URL(urlStr + encoded_query);
+                JsonObject Address = getaddress(url2);
+                if (Address == null) {
+                    bCode = "없음";
+                } else {
+                    bCode = Address.get("b_code").getAsString();
+                }
+                bCodeArrayList.add(bCode);
+            }
+    } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return bCodeArrayList;
+}
 
-            String hCode = roadAddress.get("h_code").getAsString();
-            sqlList.sethCode(hCode);
+    public ArrayList<String> runhCode() throws MalformedURLException, UnsupportedEncodingException {
+        String hCode = null;
+        UrlFor urlfor = new UrlFor();
+        URL url2 = null;
+        ArrayList<URL> urls = urlfor.urlconnection();
+        String addressName = null;
+        try {
+            int count = urls.size();
+            for (int i = 0; i < count; i++) {
+                url = urls.get(i);
+                JsonObject roadAddress = getaddress(url);
+                if (roadAddress == null) {
+                    addressName = "없음";
+                } else {
+                    addressName = roadAddress.get("address_name").getAsString();
+                }
+                String encoded_query = URLEncoder.encode(addressName, "UTF-8");
+                url2 = new URL(urlStr + encoded_query);
+                JsonObject Address = getaddress(url2);
+                if (Address == null) {
+                    hCode = "없음";
+                } else {
+                    hCode = Address.get("h_code").getAsString();
+                }
+                hCodeArrayList.add(hCode);
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return hCodeArrayList;
+    }
 
-
-            //hCode = gethCode();
-
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+    public void runbCodehCode() throws MalformedURLException, UnsupportedEncodingException {
+        String bCode = null;
+        String hCode = null;
+        UrlFor urlfor = new UrlFor();
+        URL url2 = null;
+        ArrayList<URL> urls = urlfor.urlconnection();
+        String addressName = null;
+        try {
+            int count = urls.size();
+            for (int i = 0; i < count; i++) {
+                url = urls.get(i);
+                JsonObject roadAddress = getaddress(url);
+                if (roadAddress == null) {
+                    addressName = "0";
+                } else {
+                    addressName = roadAddress.get("address_name").getAsString();
+                }
+                addressArrayList.add(addressName);
+                String encoded_query = URLEncoder.encode(addressName, "UTF-8");
+                url2 = new URL(urlStr + encoded_query);
+                JsonObject Address = getaddress(url2);
+                if (Address == null) {
+                    bCode = "0";
+                    hCode = "0";
+                } else {
+                    bCode = Address.get("b_code").getAsString();
+                    hCode = Address.get("h_code").getAsString();
+                }
+                bCodeArrayList.add(bCode);
+                hCodeArrayList.add(hCode);
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
@@ -95,21 +189,26 @@ public class TestChild extends Test{
 //            System.out.println(String.format("Response : %d, %s", code, message));
 //            System.out.println("Response DATA : ");
 //            System.out.println(buffer == null ? "NULL " : buffer.toString());
-        JsonObject roadAddress = null;
+        JsonObject address = null;
         JsonObject json = null;
         try {
             String bufferString = buffer.toString();
             JsonParser parser = new JsonParser();
             json = parser.parse(bufferString).getAsJsonObject();
             JsonArray jsonArray = json.getAsJsonArray("documents");
+
             JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-            roadAddress = jsonObject.get("address").getAsJsonObject();
+
+            address = jsonObject.get("address").getAsJsonObject();
+
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
-
+            System.out.println(url);
+            System.out.println(json);
         }
-        return roadAddress;
+        return address;
     }
+
 
     public StringBuffer getBuffer(URL url) {
         StringBuffer buffer = null;
@@ -143,7 +242,6 @@ public class TestChild extends Test{
         }
         return buffer;
     }
-
-
 }
+
 

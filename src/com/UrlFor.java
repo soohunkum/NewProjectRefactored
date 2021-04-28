@@ -31,7 +31,6 @@ voHttps vohttps = new voHttps();
         }
     }
 
-    ;
 
     public ArrayList<URL> urlconnection() throws MalformedURLException {
 
@@ -50,6 +49,20 @@ voHttps vohttps = new voHttps();
 //            System.out.println(url.toString());
         }
         return urlarray;
+    }
+    public URL makeUrl() throws MalformedURLException {
+
+        String line = null;
+        URL url = null;
+
+        for (int j = 0; j < this.query.size() ; j++) {
+            line = query.get(j);
+            for (int i = 0; i < this.query.size(); i++) {
+                url = new URL(vohttps.getHost() + vohttps.getPath() + "?" + line);
+
+            }
+        }
+        return url;
     }
 }
 

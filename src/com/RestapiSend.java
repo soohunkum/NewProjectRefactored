@@ -23,26 +23,6 @@ public class RestapiSend {
     private static voHttps vohttps = null;
 
 
-//public static String add() {
-//
-//        QueriesArrayList queriesarraylist = new QueriesArrayList();
-//
-//    Queries query1 = new Queries("x=127.423084873712&y=37.0789561558879&input_coord=WGS84");
-//    Queries query2 = new Queries("x=127.424084873712&y=37.0789561558879&input_coord=WGS84");
-//    Queries query3 = new Queries("x=127.425084873712&y=37.0789561558879&input_coord=WGS84");
-//    Queries query4 = new Queries("x=127.426084873712&y=37.0789561558879&input_coord=WGS84");
-//    Queries query5 = new Queries("x=127.427084873712&y=37.0789561558879&input_coord=WGS84");
-//
-//    queriesarraylist.addQueries(query1);
-//    queriesarraylist.addQueries(query2);
-//    queriesarraylist.addQueries(query3);
-//    queriesarraylist.addQueries(query4);
-//    queriesarraylist.addQueries(query5);
-//
-//    queriesarraylist.returnQueries(query1);
-//
-//    return queriesarraylist.returnQueries(query1);
-//}
 
 
     public static ArrayList<HttpsURLConnection> connection() throws IOException, MalformedURLException {

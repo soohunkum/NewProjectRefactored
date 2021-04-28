@@ -23,12 +23,25 @@ public class Test {
     BufferedReader reader = null;
     ArrayList<String> addressArrayList = new ArrayList<>();
 
-//
-//    public int getSize() throws MalformedURLException {
-//        UrlFor urlfor = new UrlFor();
-//        int count = urlfor.urlconnection().size();
-//        return count;
-//    }
+    public ArrayList<String> getbCodeArrayList() {
+        return bCodeArrayList;
+    }
+
+    public void setbCodeArrayList(ArrayList<String> bCodeArrayList) {
+        this.bCodeArrayList = bCodeArrayList;
+    }
+
+    public ArrayList<String> gethCodeArrayList() {
+        return hCodeArrayList;
+    }
+
+    public void sethCodeArrayList(ArrayList<String> hCodeArrayList) {
+        this.hCodeArrayList = hCodeArrayList;
+    }
+
+    ArrayList<String> bCodeArrayList = new ArrayList<>();
+    ArrayList<String> hCodeArrayList = new ArrayList<>();
+
     public Test(){}
 
 
@@ -45,8 +58,6 @@ public class Test {
                 JsonObject roadAddress = getaddress(url);
                 if (roadAddress == null) continue;
                 String addressName = roadAddress.get("address_name").getAsString();
-                System.out.println(addressName);
-                //setAddressName(addressName);
                 addressArrayList.add(addressName);
                 ++resultCount;
 
@@ -62,6 +73,8 @@ public class Test {
                 String addressName = addressArrayList.get(i);
                 //setAddressName(addressName);
                 runSomeNext(addressName);
+                setbCodeArrayList(bCodeArrayList);
+                sethCodeArrayList(hCodeArrayList);
 
 
 
@@ -79,15 +92,11 @@ public class Test {
             url = new URL(urlStr + encoded_query);
             JsonObject roadAddress = getaddress(url);
             String bCode = roadAddress.get("b_code").getAsString();
-            sqlList.setbCode(bCode);
-            //bCode = getbCode();
-            System.out.println(bCode);
-            String hCode = roadAddress.get("h_code").getAsString();
-            sqlList.sethCode(hCode);
-            //hCode = gethCode();
-            System.out.println(hCode);
+            bCodeArrayList.add(bCode);
 
-            System.out.println("법정동코드: " + bCode + "/" + "행정동코드: " + hCode);
+            String hCode = roadAddress.get("h_code").getAsString();
+            hCodeArrayList.add(hCode);
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
