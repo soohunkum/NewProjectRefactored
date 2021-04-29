@@ -377,12 +377,9 @@ public class JdbcUtilChild extends JdbcUtil {
             String bCodesql = testChild.getbCodeArrayList().get(i);
             String hCodesql = testChild.gethCodeArrayList().get(i);
             Integer numsql = jdbcUtilChild.getArrayNum().get(i);
-            if (bCodesql == "0" || hCodesql == "0") {
-                sql = "UPDATE wtt_wutl_ht SET bjd_cde = null, hjd_cde = null;";
-            } else {
                 sql = "UPDATE wtt_wutl_ht SET bjd_cde = (" + bCodesql + "), hjd_cde = (" + hCodesql + ") WHERE ftr_idn = (" + numsql + ");";
             }
             sqlArray.add(sql);
         }
     }
-}
+

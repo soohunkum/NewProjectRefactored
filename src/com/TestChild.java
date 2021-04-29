@@ -158,7 +158,7 @@ public class TestChild extends Test {
                 url = urls.get(i);
                 JsonObject roadAddress = getaddress(url);
                 if (roadAddress == null) {
-                    addressName = "0";
+                    continue;
                 } else {
                     addressName = roadAddress.get("address_name").getAsString();
                 }
@@ -167,8 +167,7 @@ public class TestChild extends Test {
                 url2 = new URL(urlStr + encoded_query);
                 JsonObject Address = getaddress(url2);
                 if (Address == null) {
-                    bCode = "0";
-                    hCode = "0";
+                    continue;
                 } else {
                     bCode = Address.get("b_code").getAsString();
                     hCode = Address.get("h_code").getAsString();
@@ -183,12 +182,9 @@ public class TestChild extends Test {
         }
     }
 
+
     public JsonObject getaddress(URL url) {
         StringBuffer buffer = getBuffer(url);
-
-//            System.out.println(String.format("Response : %d, %s", code, message));
-//            System.out.println("Response DATA : ");
-//            System.out.println(buffer == null ? "NULL " : buffer.toString());
         JsonObject address = null;
         JsonObject json = null;
         try {
@@ -196,9 +192,7 @@ public class TestChild extends Test {
             JsonParser parser = new JsonParser();
             json = parser.parse(bufferString).getAsJsonObject();
             JsonArray jsonArray = json.getAsJsonArray("documents");
-
             JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-
             address = jsonObject.get("address").getAsJsonObject();
 
         } catch (IndexOutOfBoundsException e) {

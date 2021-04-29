@@ -9,15 +9,7 @@ import com.example.voHttps;
 
 public class UrlFor {
 voHttps vohttps = new voHttps();
-//    String[] queries = {
-////    "x=127.423084873712&y=37.0789561558879&input_coord=WGS84",
-//
-//            "x=128.619305&y=36.806944&input_coord=WGS84",
-//            "x=127.425084873712&y=37.0789561558879&input_coord=WGS84",
-//            "x=127.426084873712&y=37.0789561558879&input_coord=WGS84",
-//            "x=127.427084873712&y=37.0789561558879&input_coord=WGS84"
-//
-//    };
+
     JdbcUtil jdbcUtil = new JdbcUtil();
 
 
@@ -33,7 +25,7 @@ voHttps vohttps = new voHttps();
 
 
     public ArrayList<URL> urlconnection() throws MalformedURLException {
-
+        JdbcUtilChild jdbcUtilChild = new JdbcUtilChild();
         String line = null;
         URL url = null;
         ArrayList<URL> urlarray = new ArrayList<URL>(10);
@@ -50,19 +42,6 @@ voHttps vohttps = new voHttps();
         }
         return urlarray;
     }
-    public URL makeUrl() throws MalformedURLException {
 
-        String line = null;
-        URL url = null;
-
-        for (int j = 0; j < this.query.size() ; j++) {
-            line = query.get(j);
-            for (int i = 0; i < this.query.size(); i++) {
-                url = new URL(vohttps.getHost() + vohttps.getPath() + "?" + line);
-
-            }
-        }
-        return url;
-    }
 }
 

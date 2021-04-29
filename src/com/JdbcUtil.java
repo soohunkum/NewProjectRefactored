@@ -389,15 +389,15 @@ public class JdbcUtil {
         String user = "postgres";
         String password = "root";
 
-
         try {
 
             conn = DriverManager.getConnection(url, user, password);
             conn.setAutoCommit(false);
             st1 = conn.createStatement();
             for (int i = 0; i < getCount(); i++) {
-                System.out.println(jdbcUtilChild.getSqlArray().get(i));
-                st1.executeUpdate(jdbcUtilChild.getSqlArray().get(i));
+                String sqlName = jdbcUtilChild.getSqlArray().get(i);
+                System.out.println(sqlName);
+                st1.executeUpdate(sqlName);
 
 
             }
