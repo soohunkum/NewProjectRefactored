@@ -103,13 +103,13 @@ public class TestChild extends Test {
                 }
                 bCodeArrayList.add(bCode);
             }
-    } catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         return bCodeArrayList;
-}
+    }
 
     public ArrayList<String> runhCode() throws MalformedURLException, UnsupportedEncodingException {
         String hCode = null;
@@ -150,57 +150,77 @@ public class TestChild extends Test {
         String hCode = null;
         UrlFor urlfor = new UrlFor();
         URL url2 = null;
-        ArrayList<URL> urls = urlfor.urlconnection();
         String addressName = null;
+        JsonObject roadAddress = null;
+        String encoded_query = null;
+        JsonObject Address = null;
         try {
+            ArrayList<URL> urls = urlfor.urlconnection();
             int count = urls.size();
             for (int i = 0; i < count; i++) {
                 url = urls.get(i);
-                JsonObject roadAddress = getaddress(url);
-                if (roadAddress == null) {
-                    continue;
+                if (getaddress(url) == null) {
+                    addressName = null;
                 } else {
+                    roadAddress = getaddress(url);
                     addressName = roadAddress.get("address_name").getAsString();
                 }
                 addressArrayList.add(addressName);
-                String encoded_query = URLEncoder.encode(addressName, "UTF-8");
-                url2 = new URL(urlStr + encoded_query);
-                JsonObject Address = getaddress(url2);
-                if (Address == null) {
-                    continue;
+                System.out.println(addressArrayList.get(i) + "             " + i);
+                if (addressName == null) {
+                    encoded_query = null;
                 } else {
+                    encoded_query = URLEncoder.encode(addressName, "UTF-8");
+                }
+                url2 = new URL(urlStr + encoded_query);
+                if (getaddress(url2) == null) {
+                    bCode = null;
+                    hCode = null;
+                } else {
+                    Address = getaddress(url2);
                     bCode = Address.get("b_code").getAsString();
                     hCode = Address.get("h_code").getAsString();
                 }
                 bCodeArrayList.add(bCode);
                 hCodeArrayList.add(hCode);
+                System.out.println(bCodeArrayList.get(i) + "                 " + i);
             }
-        } catch (UnsupportedEncodingException e) {
+        } catch (
+                UnsupportedEncodingException e) {
             e.printStackTrace();
-        } catch (MalformedURLException e) {
+        } catch (
+                MalformedURLException e) {
             e.printStackTrace();
         }
+
     }
 
 
-    public JsonObject getaddress(URL url) {
+    public JsonObject getaddress(URL url) throws IndexOutOfBoundsException {
         StringBuffer buffer = getBuffer(url);
         JsonObject address = null;
         JsonObject json = null;
+        JsonObject jsonObject = null;
         try {
             String bufferString = buffer.toString();
             JsonParser parser = new JsonParser();
             json = parser.parse(bufferString).getAsJsonObject();
             JsonArray jsonArray = json.getAsJsonArray("documents");
-            JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-            address = jsonObject.get("address").getAsJsonObject();
-
+            if (jsonArray.size() == 0) {
+                address = null;
+            } else {
+                jsonObject = jsonArray.get(0).getAsJsonObject();
+                address = jsonObject.get("address").getAsJsonObject();
+            }
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
             System.out.println(url);
             System.out.println(json);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return address;
         }
-        return address;
     }
 
 

@@ -27,14 +27,15 @@ public class getObject {
         //System.out.println(jdbcUtil.makeNumSql());
         UrlFor urlfor = new UrlFor();
         ArrayList<URL> urls = urlfor.urlconnection();
-        int count = urls.size();
-        for (int i = 0; i < count; i++) {
-            System.out.println(testChild.getaddress(urlfor.urlconnection().get(i)));
+        testChild.runbCodehCode();
+//        int count = urls.size();
+//        for (int i = 0; i < count; i++) {
+//            System.out.println(testChild.getaddress(urlfor.urlconnection().get(i)));
 
         }
 
     }
-}
+
 
 
 
