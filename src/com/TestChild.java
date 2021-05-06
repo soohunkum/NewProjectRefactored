@@ -1,6 +1,5 @@
 package com;
 
-import com.example.voHttps;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -43,107 +42,11 @@ public class TestChild extends Test {
         this.hCodeArrayList = hCodeArrayList;
     }
 
-    public ArrayList<String> getAddressArrayList() {
-        return addressArrayList;
-    }
+
 
     public TestChild() {
     }
 
-
-    public ArrayList<String> runAddressName() {
-        System.out.println("runSome 실행됨");
-        String addressName;
-        try {
-            UrlFor urlfor = new UrlFor();
-            ArrayList<URL> urls = urlfor.urlconnection();
-            int count = urls.size();
-            System.out.println("총 URL 수: " + count);
-            for (int i = 0; i < count; i++) {
-                url = urls.get(i);
-                JsonObject roadAddress = getaddress(url);
-                if (roadAddress == null) {
-                    addressName = "없음";
-                } else {
-                    addressName = roadAddress.get("address_name").getAsString();
-                }
-                addressArrayList.add(addressName);
-
-            }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return addressArrayList;
-    }
-
-    public ArrayList<String> runbCode() throws MalformedURLException, UnsupportedEncodingException {
-        String bCode = null;
-        UrlFor urlfor = new UrlFor();
-        URL url2 = null;
-        ArrayList<URL> urls = urlfor.urlconnection();
-        String addressName = null;
-        try {
-            int count = urls.size();
-            for (int i = 0; i < count; i++) {
-                url = urls.get(i);
-                JsonObject roadAddress = getaddress(url);
-                if (roadAddress == null) {
-                    addressName = "없음";
-                } else {
-                    addressName = roadAddress.get("address_name").getAsString();
-                }
-                String encoded_query = URLEncoder.encode(addressName, "UTF-8");
-                url2 = new URL(urlStr + encoded_query);
-                JsonObject Address = getaddress(url2);
-                if (Address == null) {
-                    bCode = "없음";
-                } else {
-                    bCode = Address.get("b_code").getAsString();
-                }
-                bCodeArrayList.add(bCode);
-            }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return bCodeArrayList;
-    }
-
-    public ArrayList<String> runhCode() throws MalformedURLException, UnsupportedEncodingException {
-        String hCode = null;
-        UrlFor urlfor = new UrlFor();
-        URL url2 = null;
-        ArrayList<URL> urls = urlfor.urlconnection();
-        String addressName = null;
-        try {
-            int count = urls.size();
-            for (int i = 0; i < count; i++) {
-                url = urls.get(i);
-                JsonObject roadAddress = getaddress(url);
-                if (roadAddress == null) {
-                    addressName = "없음";
-                } else {
-                    addressName = roadAddress.get("address_name").getAsString();
-                }
-                String encoded_query = URLEncoder.encode(addressName, "UTF-8");
-                url2 = new URL(urlStr + encoded_query);
-                JsonObject Address = getaddress(url2);
-                if (Address == null) {
-                    hCode = "없음";
-                } else {
-                    hCode = Address.get("h_code").getAsString();
-                }
-                hCodeArrayList.add(hCode);
-            }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return hCodeArrayList;
-    }
 
     public void runbCodehCode() throws MalformedURLException, UnsupportedEncodingException {
         String bCode = null;

@@ -4,8 +4,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import com.example.voHttps;
 
 public class UrlFor {
 voHttps vohttps = new voHttps();

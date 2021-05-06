@@ -1,4 +1,4 @@
-package com.example;
+package com;
 
 import java.io.OptionalDataException;
 
@@ -23,10 +23,5 @@ public class voHttps {
     public static String getPath() {
         return path;
     }
-
-    public static String getPath2() {
-        return path2;
-    }
-
 
 }
