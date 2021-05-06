@@ -24,7 +24,6 @@ public class JdbcUtil {
     public double y;
 
 
-
     public void variables() {
 
         Connection conn = null;
@@ -376,9 +375,7 @@ public class JdbcUtil {
     }
 
 
-
-
-    public static void main(String[] args) throws IOException, SQLException, PSQLException, NullPointerException {
+    public static void main(String[] args) throws IOException, SQLException, PSQLException, NullPointerException, IndexOutOfBoundsException {
         JdbcUtilChild jdbcUtilChild = new JdbcUtilChild();
 
         Connection conn = null;
@@ -397,15 +394,16 @@ public class JdbcUtil {
             for (int i = 0; i < getCount(); i++) {
                 String sqlName = jdbcUtilChild.getSqlArray().get(i);
                 System.out.println(sqlName);
-                st1.executeUpdate(sqlName);
+                if (sqlName == null) continue;
+                    st1.executeUpdate(sqlName);
+                }
 
-
-            }
             conn.commit();
 
 
-        } catch (PSQLException | NullPointerException e) {
+        } catch (PSQLException | NullPointerException | IndexOutOfBoundsException e) {
             System.out.println(e);
+            System.err.println(e);
             e.printStackTrace();
 
         } finally {

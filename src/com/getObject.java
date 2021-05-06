@@ -25,9 +25,10 @@ public class getObject {
         //System.out.println(jdbcUtilChild.returnNum());
         // System.out.println(jdbcUtilChild.makebCodeSql());
         //System.out.println(jdbcUtil.makeNumSql());
-        UrlFor urlfor = new UrlFor();
-        ArrayList<URL> urls = urlfor.urlconnection();
-        testChild.runbCodehCode();
+       // UrlFor urlfor = new UrlFor();
+        //ArrayList<URL> urls = urlfor.urlconnection();
+        //testChild.runbCodehCode();
+        jdbcUtilChild.makeSql();
 //        int count = urls.size();
 //        for (int i = 0; i < count; i++) {
 //            System.out.println(testChild.getaddress(urlfor.urlconnection().get(i)));

@@ -372,14 +372,20 @@ public class JdbcUtilChild extends JdbcUtil {
         jdbcUtilChild.returnNum();
         sqlArray = new ArrayList<String>();
         String sql = null;
-        for (int i = 0; i < getCount(); i++) {
-
+        for (int i = 0; i < jdbcUtilChild.returnNum().size(); i++) {
             String bCodesql = testChild.getbCodeArrayList().get(i);
             String hCodesql = testChild.gethCodeArrayList().get(i);
             Integer numsql = jdbcUtilChild.getArrayNum().get(i);
+            System.out.println(numsql);
+            if (bCodesql == null || hCodesql == null) {
+                sql = null;
+            } else {
                 sql = "UPDATE wtt_wutl_ht SET bjd_cde = (" + bCodesql + "), hjd_cde = (" + hCodesql + ") WHERE ftr_idn = (" + numsql + ");";
             }
+            System.out.println(sql);
             sqlArray.add(sql);
         }
     }
+}
+
 

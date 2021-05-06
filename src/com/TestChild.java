@@ -166,7 +166,8 @@ public class TestChild extends Test {
                     addressName = roadAddress.get("address_name").getAsString();
                 }
                 addressArrayList.add(addressName);
-                System.out.println(addressArrayList.get(i) + "             " + i);
+                System.out.println(addressName + "      " + i);
+                //System.out.println(addressArrayList.get(i) + "             " + i);
                 if (addressName == null) {
                     encoded_query = null;
                 } else {
@@ -183,7 +184,7 @@ public class TestChild extends Test {
                 }
                 bCodeArrayList.add(bCode);
                 hCodeArrayList.add(hCode);
-                System.out.println(bCodeArrayList.get(i) + "                 " + i);
+                //System.out.println(bCodeArrayList.get(i) + "                 " + i);
             }
         } catch (
                 UnsupportedEncodingException e) {
