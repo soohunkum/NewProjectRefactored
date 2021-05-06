@@ -30,9 +30,19 @@ public class TestChild extends Test {
         return bCodeArrayList;
     }
 
+    public void setbCodeArrayList(ArrayList<String> bCodeArrayList) {
+        this.bCodeArrayList = bCodeArrayList;
+    }
+
     public ArrayList<String> gethCodeArrayList() {
         return hCodeArrayList;
     }
+
+    public void sethCodeArrayList(ArrayList<String> hCodeArrayList) {
+        this.hCodeArrayList = hCodeArrayList;
+    }
+
+
 
     public TestChild() {
     }
